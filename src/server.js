@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import pino from 'pino';
-import Contact from './models/contact.js';
+// import Contact from './models/contact.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
 const logger = pino({
   transport: {
@@ -47,7 +48,7 @@ export function setupServer() {
       }
       res.json({
         status: 200,
-        message: 'Successfully found contact with id {contactId}!',
+        message: `Successfully found contact with id ${contactId}!`,
         data: contact,
       });
     } catch (error) {
