@@ -1,4 +1,5 @@
 import Contact from '../models/contact.js';
+import createHttpError from 'http-errors';
 
 export const getAllContacts = async () => {
   return await Contact.find();
@@ -20,7 +21,7 @@ export const patchContact = async (contactId, contact) => {
       { new: true },
     );
     if (!updatedContact) {
-      throw createError(404, 'Contact not found');
+      throw new createHttpError.NotFound('Contact not found');
     }
 
     return updatedContact;
@@ -30,5 +31,5 @@ export const patchContact = async (contactId, contact) => {
 };
 
 export const deleteContact = async (contactId) => {
-  return Student.findByIdAndDelete(contactId);
+  return Contact.findByIdAndDelete(contactId);
 };

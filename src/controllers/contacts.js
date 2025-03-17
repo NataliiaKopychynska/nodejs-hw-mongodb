@@ -46,10 +46,10 @@ export async function postContactController(req, res) {
 }
 
 export async function patchContactController(req, res) {
-  const { id } = req.params;
+  const { contactId } = req.params;
   const contact = req.body;
 
-  const result = await patchContact(id, contact);
+  const result = await patchContact(contactId, contact);
   console.log(result);
 
   if (result === null) {
@@ -64,8 +64,8 @@ export async function patchContactController(req, res) {
 }
 
 export async function deleteContactController(req, res) {
-  const { id } = req.params;
-  const result = await deleteContact(id);
+  const { contactId } = req.params;
+  const result = await deleteContact(contactId);
   console.log(result);
 
   if (result === null) {
