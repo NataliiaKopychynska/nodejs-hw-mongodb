@@ -14,20 +14,16 @@ export const postContact = async (contact) => {
 };
 
 export const patchContact = async (contactId, contact) => {
-  try {
-    const updatedContact = await Contact.findByIdAndUpdate(
-      contactId,
-      { $set: contact },
-      { new: true },
-    );
-    if (!updatedContact) {
-      throw new createHttpError.NotFound('Contact not found');
-    }
-
-    return updatedContact;
-  } catch (error) {
-    throw new Error('Error updating contact');
+  const updatedContact = await Contact.findByIdAndUpdate(
+    contactId,
+    { $set: contact },
+    { new: true },
+  );
+  if (!updatedContact) {
+    throw new createHttpError.NotFound('Contact not found');
   }
+
+  return updatedContact;
 };
 
 export const deleteContact = async (contactId) => {
