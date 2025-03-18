@@ -7,11 +7,9 @@ export function errorHandler(error, req, res, next) {
       .json({ status: error.status, message: error.message });
   }
   console.error(error);
-  res
-    .status(404)
-    .json({
-      status: 500,
-      message: 'Something went wrong',
-      data: error.message,
-    });
+  res.status(404).json({
+    status: 404,
+    message: 'Contact not found',
+    data: error.message,
+  });
 }

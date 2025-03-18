@@ -52,7 +52,7 @@ export async function patchContactController(req, res) {
   const result = await patchContact(contactId, contact);
   console.log(result);
 
-  if (result === null) {
+  if (!result) {
     throw new createHttpError.NotFound('Contact not found');
   }
 
