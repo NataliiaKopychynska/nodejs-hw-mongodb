@@ -6,13 +6,20 @@ import {
   deleteContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
+import { parsPaginationParams } from '../utils/parsPaginationParams.js';
+import { parsSortParams } from '../utils/parsSortParams.js';
+import { query } from 'express';
 
 export async function getContactsController(req, res) {
-  const contacts = await getAllContacts();
+  const { page, perPage } = parsPaginationParams(req.query);
+  const { sortBy, sortOrder } = parsSortParams(req.query);
+  req, query;
+
+  const response = await getAllContacts({ page, perPage, sortBy, sortOrder });
   res.json({
     status: 200,
     message: 'Successfully found contacts!',
-    data: contacts,
+    data: response,
   });
 }
 
