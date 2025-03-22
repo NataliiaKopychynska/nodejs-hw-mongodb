@@ -8,10 +8,11 @@ export function validateBody(schema) {
       console.log(result);
       next();
     } catch (error) {
-      const errors = error.details.map((detail) => detail.massage);
+      const errors = error.details.map((detail) => detail.message);
       console.log(errors);
 
-      next(new createHttpError.BadRequest(JSON.stringify(errors)));
+      //   next(new createHttpError.BadRequest(JSON.stringify(errors)));
+      next(new createHttpError.BadRequest(errors));
     }
   };
 }
