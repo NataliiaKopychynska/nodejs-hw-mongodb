@@ -8,11 +8,20 @@ export function validateBody(schema) {
       console.log(result);
       next();
     } catch (error) {
-      const errors = error.details.map((detail) => detail.message);
-      console.log(errors);
+      if (error.details) {
+        const errors = error.details.map((detail) => detail.message);
+        console.log(errors);
+        next(new createHttpError.BadRequest(errors));
+      } else {
+        console.error('Validation error:', error.message);
+        next(new createHttpError.BadRequest(error));
+      }
 
-      //   next(new createHttpError.BadRequest(JSON.stringify(errors)));
-      next(new createHttpError.BadRequest(errors));
+      // const errors = error.details.map((detail) => detail.message);
+      // console.log(errors);
+
+      // //   next(new createHttpError.BadRequest(JSON.stringify(errors)));
+      // next(new createHttpError.BadRequest(errors));
     }
   };
 }

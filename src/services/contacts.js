@@ -1,12 +1,18 @@
 import Contact from '../models/contact.js';
 import createHttpError from 'http-errors';
 
-export const getAllContacts = async ({ page, perPage, sortBy, sortOrder }) => {
+export const getAllContacts = async ({
+  page,
+  perPage,
+  sortBy,
+  sortOrder,
+  userId,
+}) => {
   const skip = page > 0 ? (page - 1) * perPage : 0;
 
   const [totalItems, data] = await Promise.all([
     Contact.countDocuments(),
-    Contact.find()
+    Contact.find({ userId })
       .sort({ [sortBy]: sortOrder })
       .skip(skip)
       .limit(perPage),

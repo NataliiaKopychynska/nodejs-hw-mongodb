@@ -11,11 +11,19 @@ import { parsSortParams } from '../utils/parsSortParams.js';
 import { query } from 'express';
 
 export async function getContactsController(req, res) {
+  // console.log(req.user);
+
   const { page, perPage } = parsPaginationParams(req.query);
   const { sortBy, sortOrder } = parsSortParams(req.query);
   req, query;
 
-  const response = await getAllContacts({ page, perPage, sortBy, sortOrder });
+  const response = await getAllContacts({
+    page,
+    perPage,
+    sortBy,
+    sortOrder,
+    userId: req.user.id,
+  });
   res.json({
     status: 200,
     message: 'Successfully found contacts!',
@@ -32,6 +40,11 @@ export async function getContactController(req, res) {
     // });
     throw new createHttpError.NotFound('Contact not found');
   }
+
+  if (contact.userId.toString() !== req.user.id.toString()) {
+    // throw new createHttpError.Forbidden('Contact is not allowed');
+    throw new createHttpError.NotFound('Contact not found');
+  }
   res.json({
     status: 200,
     message: `Successfully found contact with id ${contactId}!`,
@@ -40,8 +53,8 @@ export async function getContactController(req, res) {
 }
 
 export async function postContactController(req, res) {
-  console.log(req.body);
-  const contact = req.body;
+  // console.log(req.body);
+  const contact = { ...req.body, userId: req.user.id };
   const result = await postContact(contact);
   console.log('Created contact:', result);
 
@@ -58,6 +71,11 @@ export async function patchContactController(req, res) {
 
   const result = await patchContact(contactId, contact);
   console.log(result);
+
+  if (result.userId.toString() !== req.user.id.toString()) {
+    // throw new createHttpError.Forbidden('Contact is not allowed');
+    throw new createHttpError.NotFound('Contact not found');
+  }
 
   if (!result) {
     return res.status(404).json({
@@ -77,6 +95,11 @@ export async function deleteContactController(req, res) {
   const { contactId } = req.params;
   const result = await deleteContact(contactId);
   console.log(result);
+
+  if (result.userId.toString() !== req.user.id.toString()) {
+    // throw new createHttpError.Forbidden('Contact is not allowed');
+    throw new createHttpError.NotFound('Contact not found');
+  }
 
   if (result === null) {
     throw new createHttpError.NotFound('Contact not found');

@@ -13,14 +13,16 @@ import {
   contactSchema,
   updateContactSchema,
 } from '../validation/contactSchema.js';
+import { auth } from '../middlewares/auth.js';
 
 const routes = express.Router();
 const jsonParse = express.json();
 
-routes.get('/contacts', ctrWrapper(getContactsController));
+routes.get('/contacts', auth, ctrWrapper(getContactsController));
 
 routes.get(
   '/contacts/:contactId',
+  auth,
   isValidId,
   jsonParse,
   ctrWrapper(getContactController),
@@ -28,6 +30,7 @@ routes.get(
 
 routes.post(
   '/contacts',
+  auth,
   jsonParse,
   validateBody(contactSchema),
   ctrWrapper(postContactController),
@@ -35,6 +38,7 @@ routes.post(
 
 routes.patch(
   '/contacts/:contactId',
+  auth,
   isValidId,
   jsonParse,
   validateBody(updateContactSchema),
@@ -42,6 +46,7 @@ routes.patch(
 );
 routes.delete(
   '/contacts/:contactId',
+  auth,
   isValidId,
   ctrWrapper(deleteContactController),
 );
