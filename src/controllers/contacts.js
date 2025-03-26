@@ -33,7 +33,7 @@ export async function getContactsController(req, res) {
 
 export async function getContactController(req, res) {
   const { contactId } = req.params;
-  const contact = await getContactById(contactId);
+  const contact = await getContactById(contactId, req.user.id);
   if (contact === null) {
     // return res.status(404).json({
     //   message: 'Contact not found',
@@ -69,7 +69,7 @@ export async function patchContactController(req, res) {
   const { contactId } = req.params;
   const contact = req.body;
 
-  const result = await patchContact(contactId, contact);
+  const result = await patchContact(contactId, contact, req.user.id);
   console.log(result);
 
   if (result.userId.toString() !== req.user.id.toString()) {
@@ -93,7 +93,7 @@ export async function patchContactController(req, res) {
 
 export async function deleteContactController(req, res) {
   const { contactId } = req.params;
-  const result = await deleteContact(contactId);
+  const result = await deleteContact(contactId, req.user.id);
   console.log(result);
 
   if (result.userId.toString() !== req.user.id.toString()) {

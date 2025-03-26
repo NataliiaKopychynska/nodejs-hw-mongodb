@@ -11,7 +11,7 @@ export const getAllContacts = async ({
   const skip = page > 0 ? (page - 1) * perPage : 0;
 
   const [totalItems, data] = await Promise.all([
-    Contact.countDocuments(),
+    Contact.countDocuments({ userId }),
     Contact.find({ userId })
       .sort({ [sortBy]: sortOrder })
       .skip(skip)
@@ -26,21 +26,21 @@ export const getAllContacts = async ({
     totalItems,
     totalPages,
     hasPreviousPage: page > 1,
-    hasNextPage: totalPages - page > 0,
+    hasNextPage: page < totalPages,
   };
 };
 
-export const getContactById = async (contactId) => {
-  return await Contact.findById(contactId);
+export const getContactById = async (contactId, userId) => {
+  return await Contact.findOne({ _id: contactId, userId });
 };
 
 export const postContact = async (contact) => {
   return Contact.create(contact);
 };
 
-export const patchContact = async (contactId, contact) => {
-  const updatedContact = await Contact.findByIdAndUpdate(
-    contactId,
+export const patchContact = async (contactId, contact, userId) => {
+  const updatedContact = await Contact.findOneAndUpdate(
+    { _id: contactId, userId },
     { $set: contact },
     { new: true },
   );
@@ -51,6 +51,6 @@ export const patchContact = async (contactId, contact) => {
   return updatedContact;
 };
 
-export const deleteContact = async (contactId) => {
-  return Contact.findByIdAndDelete(contactId);
+export const deleteContact = async (contactId, userId) => {
+  return Contact.findOneAndDelete({ _id: contactId, userId });
 };
