@@ -9,6 +9,7 @@ import createHttpError from 'http-errors';
 import { parsPaginationParams } from '../utils/parsPaginationParams.js';
 import { parsSortParams } from '../utils/parsSortParams.js';
 import { query } from 'express';
+import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
 
 export async function getContactsController(req, res) {
   // console.log(req.user);
@@ -53,8 +54,10 @@ export async function getContactController(req, res) {
 }
 
 export async function postContactController(req, res) {
-  // console.log(req.body);
-  const contact = { ...req.body, userId: req.user.id };
+  const photoCloudinary = await uploadToCloudinary(req.file.path);
+  const photoData = photoCloudinary.secure_url;
+
+  const contact = { ...req.body, userId: req.user.id, photo: photoData };
   const result = await postContact(contact);
   console.log('Created contact:', result);
 
@@ -66,10 +69,13 @@ export async function postContactController(req, res) {
 }
 
 export async function patchContactController(req, res) {
+  const photoCloudinary = await uploadToCloudinary(req.file.path);
+  const photo = photoCloudinary.secure_url;
+
   const { contactId } = req.params;
   const contact = req.body;
 
-  const result = await patchContact(contactId, contact, req.user.id);
+  const result = await patchContact(contactId, contact, req.user.id, photo);
   console.log(result);
 
   if (result.userId.toString() !== req.user.id.toString()) {

@@ -14,6 +14,7 @@ import {
   updateContactSchema,
 } from '../validation/contactSchema.js';
 import { auth } from '../middlewares/auth.js';
+import { upload } from '../middlewares/upload.js';
 
 const routes = express.Router();
 const jsonParse = express.json();
@@ -30,6 +31,7 @@ routes.get(
 
 routes.post(
   '/contacts',
+  upload.single('photo'),
   auth,
   jsonParse,
   validateBody(contactSchema),

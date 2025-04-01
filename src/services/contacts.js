@@ -38,9 +38,9 @@ export const postContact = async (contact) => {
   return Contact.create(contact);
 };
 
-export const patchContact = async (contactId, contact, userId) => {
+export const patchContact = async (contactId, contact, userId, photo) => {
   const updatedContact = await Contact.findOneAndUpdate(
-    { _id: contactId, userId },
+    { _id: contactId, userId, photo },
     { $set: contact },
     { new: true },
   );
