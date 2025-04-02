@@ -1,5 +1,5 @@
 import cloudinary from 'cloudinary';
-import getEnvVar from './getEnvVar.js';
+import { getEnvVar } from './getEnvVar.js';
 
 cloudinary.v2.config({
   secure: true,

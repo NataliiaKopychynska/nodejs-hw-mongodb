@@ -9,7 +9,7 @@ import createHttpError from 'http-errors';
 import { User } from '../models/user.js';
 import { Session } from '../models/session.js';
 import { sendEmail } from '../utils/sendEmail.js';
-import getEnvVar from '../utils/getEnvVar.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 const RESET_PASSWORD_TEMPLATE = fs.readFileSync(
   path.resolve('src/templates/reset-password.hbs'),

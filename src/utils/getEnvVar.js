@@ -1,17 +1,7 @@
 // import dotenv from 'dotenv';
 // dotenv.config();
 
-// function getEnvVar(name, defaultValue) {
-//   const value = process.env[name];
-//   if (value) return value;
-//   if (defaultValue) return defaultValue;
-
-//   throw new Error(`missing process.env.${name}`);
-// }
-
-// export default getEnvVar;
-
-function getEnvVar(name, defaultValue) {
+export function getEnvVar(name, defaultValue) {
   const value = process.env[name];
   if (value) return value;
   if (defaultValue) return defaultValue;
@@ -19,4 +9,14 @@ function getEnvVar(name, defaultValue) {
   throw new Error(`missing process.env.${name}`);
 }
 
-export default getEnvVar;
+// export default getEnvVar;
+
+// function getEnvVar(name, defaultValue) {
+//   return (
+//     process.env[name] ||
+//     defaultValue ||
+//     new Error(`missing process.env.${name}`)
+//   );
+// }
+
+// export default getEnvVar;
