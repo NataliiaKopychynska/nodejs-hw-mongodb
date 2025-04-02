@@ -3,7 +3,8 @@ import getEnvVar from './getEnvVar.js';
 
 cloudinary.v2.config({
   secure: true,
-  cloud_name: getEnvVar('CLOUDINARY_CLOUD_NAME'),
+  //   cloud_name: getEnvVar('CLOUDINARY_CLOUD_NAME'),
+  cloud_name: 'dokj7aq0x',
   api_key: getEnvVar('CLOUDINARY_API_KEY'),
   api_secret: getEnvVar('CLOUDINARY_API_SECRET'),
 });
