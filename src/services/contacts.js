@@ -40,8 +40,8 @@ export const postContact = async (contact) => {
 
 export const patchContact = async (contactId, contact, userId, photo) => {
   const updatedContact = await Contact.findOneAndUpdate(
-    { _id: contactId, userId, photo },
-    { $set: contact },
+    { _id: contactId, userId },
+    { ...contact, photo },
     { new: true },
   );
   if (!updatedContact) {

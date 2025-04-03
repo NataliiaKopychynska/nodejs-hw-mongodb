@@ -4,6 +4,7 @@ import {
   logoutUser,
   refreshSession,
   requestResetPassword,
+  resetPassword,
 } from '../services/auth.js';
 
 export async function registerController(req, res) {

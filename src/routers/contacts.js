@@ -40,6 +40,7 @@ routes.post(
 
 routes.patch(
   '/contacts/:contactId',
+  upload.single('photo'),
   auth,
   isValidId,
   jsonParse,
