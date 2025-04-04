@@ -125,7 +125,7 @@ export async function resetPassword(token, password) {
       throw new createHttpError.NotFound('User not found!');
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.findByIdAndUpdate(user._id, { password: hashedPassword });
   } catch (error) {
