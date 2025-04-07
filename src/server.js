@@ -1,5 +1,9 @@
+import * as fs from 'node:fs';
+import path from 'node:path';
+
 import express from 'express';
-import cookieParser from 'cookie-parser';
+import cookieParser from 'express';
+import swaggerUIExpress from 'swagger-ui-express';
 import cors from 'cors';
 import 'dotenv/config';
 import initMongoConnection from './db/initMongoConnection.js';
@@ -17,6 +21,10 @@ const logger = pino({
   },
 });
 
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(path.resolve('docs', 'swagger.json'), 'utf-8'),
+);
+
 export async function setupServer() {
   const PORT = process.env.PORT || 9090;
 
@@ -28,6 +36,12 @@ export async function setupServer() {
     app.use(cookieParser());
     app.use(cors());
     app.use(express.json());
+
+    app.use(
+      '/api-docs',
+      swaggerUIExpress.serve,
+      swaggerUIExpress.setup(swaggerDocument),
+    );
 
     app.use((req, res, next) => {
       logger.info(`Incoming request: ${req.method} ${req.url}`);
