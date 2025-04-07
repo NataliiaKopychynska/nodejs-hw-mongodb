@@ -1,5 +1,5 @@
 tags:
-  - Contacts
+  - Contact
 summary: Update contact
 operationId: updateContact
 description: Update an existing contact
@@ -58,7 +58,9 @@ responses:
               example: 201
             message:
               type: string
-              example: Successfully created a contact
+              example: Successfully patched a contact!
+            data:
+              $ref: ../../../components/schemas/contact.yaml
   '401':
     $ref: ../../../components/responses/401.yaml
   '500':
