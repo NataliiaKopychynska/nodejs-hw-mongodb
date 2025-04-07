@@ -1,0 +1,45 @@
+type: object
+required:
+  - _id
+  - name
+  - phoneNumber
+  - contactType
+  - userId
+  - photo
+properties:
+  _id:
+    type: string
+    description: Contact id
+    example: 67eec4c00c73bfc979baedbc
+  name:
+    type: string
+    description: Contact name
+    example: Lola Bs
+  phoneNumber:
+    type: string
+    description: Contact number
+    example: +38097357689
+  contactType:
+    type: string
+    description: Contact type
+    enum: ['work', 'home', 'personal']
+    example: personal
+  userId:
+    type: string
+    description: Contact id
+    example: 67eec4c00c73bfc979baedbc
+  createdAt:
+    type: string
+    format: date-time
+    description: Student created date
+    example: 2025-03-27T19:43:21.686+00:00
+  updateAt:
+    type: string
+    format: date-time
+    description: Student updated date
+    example: 2025-03-27T19:43:21.686+00:00
+  photo:
+    type: string
+    description: Student avatar url
+    example: https://res.cloudinary.com/dha4xvgfi/image/upload/v1743104601/snunhxlqvnd67budfeja.webp
+    default: null

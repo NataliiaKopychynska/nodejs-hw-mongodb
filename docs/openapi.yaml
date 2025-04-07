@@ -1,0 +1,35 @@
+openapi: 3.1.0
+
+info:
+  title: University of GO.IT
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This is a documentation of Contact book application of GO.IT
+
+servers:
+  - url: http://127.0.0.1:8080
+  - url: https://nodejs-hw-mongodb-2-iwdl.onrender.com
+
+tags:
+  - name: Contact
+    description: Operation with Contact
+
+paths:
+  /contacts/{id}:
+    get:
+      $ref: ../swagger/paths/contacts/{id}/get.yaml
+    patch:
+      $ref: ../swagger/paths/contacts/{id}/patch.yaml
+    delete:
+      $ref: ../swagger/paths/contacts/{id}/delete.yaml
+  /contacts:
+    post:
+      $ref: ../swagger/paths/contacts/post.yaml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
