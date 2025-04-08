@@ -2,10 +2,11 @@ tags:
   - Contact
 summary: Create contact
 operationId: createContact
-description: Create contact
+description: Create a new contact
 security:
   - bearerAuth: []
 requestBody:
+  required: true
   content:
     multipart/form-data:
       schema:
@@ -14,15 +15,7 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-          - userId
-          - createdAt
-          - updateAt
-          - photo
         properties:
-          _id:
-            type: string
-            description: Contact id
-            example: 67eec4c00c73bfc979baedbc
           name:
             type: string
             description: Contact name
@@ -36,20 +29,6 @@ requestBody:
             description: Contact type
             enum: ['work', 'home', 'personal']
             example: personal
-          userId:
-            type: string
-            description: Contact id
-            example: 67eec4c00c73bfc979baedbc
-          createdAt:
-            type: string
-            format: date-time
-            description: Student created date
-            example: 2025-03-27T19:43:21.686+00:00
-          updateAt:
-            type: string
-            format: date-time
-            description: Student updated date
-            example: 2025-03-27T19:43:21.686+00:00
           photo:
             type: string
             format: binary
@@ -57,7 +36,7 @@ requestBody:
             default: null
 responses:
   '201':
-    description: Created a contact
+    description: Successfully created a contact
     content:
       application/json:
         schema:
