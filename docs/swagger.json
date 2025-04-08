@@ -138,12 +138,6 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name",
-                  "phoneNumber",
-                  "contactType",
-                  "userId"
-                ],
                 "properties": {
                   "name": {
                     "type": "string",
@@ -162,10 +156,6 @@
                     ],
                     "example": "personal"
                   },
-                  "userId": {
-                    "type": "string",
-                    "example": "67eec4c00c73bfc979baedbc"
-                  },
                   "photo": {
                     "type": "string",
                     "format": "binary",
@@ -177,8 +167,8 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "Created a contact",
+          "200": {
+            "description": "Successfully patched a contact",
             "content": {
               "application/json": {
                 "schema": {
@@ -191,7 +181,7 @@
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 201
+                      "example": 200
                     },
                     "message": {
                       "type": "string",
@@ -238,29 +228,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Created a contact",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully delete a contact!"
-                    }
-                  }
-                }
-              }
-            }
+            "description": "Successfully deleted a contact"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -290,27 +258,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 200
-                    },
-                    "message": {
-                      "type": "string",
-                      "example": "Successfully fetched contacts"
-                    },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/contact"
-                      }
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/contact"
                   }
                 }
               }
@@ -330,13 +280,14 @@
         ],
         "summary": "Create contact",
         "operationId": "createContact",
-        "description": "Create contact",
+        "description": "Create a new contact",
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "multipart/form-data": {
               "schema": {
@@ -344,18 +295,9 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "contactType",
-                  "userId",
-                  "createdAt",
-                  "updateAt",
-                  "photo"
+                  "contactType"
                 ],
                 "properties": {
-                  "_id": {
-                    "type": "string",
-                    "description": "Contact id",
-                    "example": "67eec4c00c73bfc979baedbc"
-                  },
                   "name": {
                     "type": "string",
                     "description": "Contact name",
@@ -376,23 +318,6 @@
                     ],
                     "example": "personal"
                   },
-                  "userId": {
-                    "type": "string",
-                    "description": "Contact id",
-                    "example": "67eec4c00c73bfc979baedbc"
-                  },
-                  "createdAt": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Student created date",
-                    "example": "2025-03-27T19:43:21.686+00:00"
-                  },
-                  "updateAt": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "Student updated date",
-                    "example": "2025-03-27T19:43:21.686+00:00"
-                  },
                   "photo": {
                     "type": "string",
                     "format": "binary",
@@ -406,7 +331,7 @@
         },
         "responses": {
           "201": {
-            "description": "Created a contact",
+            "description": "Successfully created a contact",
             "content": {
               "application/json": {
                 "schema": {
