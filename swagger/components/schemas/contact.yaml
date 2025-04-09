@@ -6,6 +6,7 @@ required:
   - contactType
   - userId
   - photo
+  - email
 properties:
   _id:
     type: string
@@ -19,6 +20,15 @@ properties:
     type: string
     description: Contact number
     example: +38097357689
+  email:
+    type: string
+    format: email
+    description: Contact email
+    example: Ryann60@yahoo.com
+  isFavourite:
+    type: boolean
+    description: Whether the contact is marked as favourite
+    example: false
   contactType:
     type: string
     description: Contact type
@@ -28,6 +38,10 @@ properties:
     type: string
     description: Contact id
     example: 67eec4c00c73bfc979baedbc
+  photo:
+    type: string
+    description: Student avatar url
+    example: https://res.cloudinary.com/dha4xvgfi/image/upload/v1743104601/snunhxlqvnd67budfeja.webp
   createdAt:
     type: string
     format: date-time
@@ -38,8 +52,7 @@ properties:
     format: date-time
     description: Student updated date
     example: 2025-03-27T19:43:21.686+00:00
-  photo:
-    type: string
-    description: Student avatar url
-    example: https://res.cloudinary.com/dha4xvgfi/image/upload/v1743104601/snunhxlqvnd67budfeja.webp
-    default: null
+  __v:
+    type: integer
+    description: Mongoose version key
+    example: 0

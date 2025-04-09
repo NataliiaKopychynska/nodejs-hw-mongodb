@@ -1,0 +1,18 @@
+type: object
+properties:
+  name:
+    type: string
+    example: Lola Bs
+  email:
+    type: string
+    example: Ryann60@yahoo.com
+  phoneNumber:
+    type: string
+    example: +38097357689
+  contactType:
+    type: string
+    enum: [work, home, personal]
+    example: personal
+  photo:
+    type: string
+    format: binary

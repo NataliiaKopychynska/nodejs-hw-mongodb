@@ -11,9 +11,59 @@ responses:
     content:
       application/json:
         schema:
-          type: array
-          items:
-            $ref: ../../components/schemas/contact.yaml
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found contacts!
+            data:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/contact.yaml
+                page:
+                  type: integer
+                  example: 1
+                perPage:
+                  type: integer
+                  example: 10
+                totalItems:
+                  type: integer
+                  example: 17
+                totalPages:
+                  type: integer
+                  example: 2
+                hasPreviousPage:
+                  type: boolean
+                  example: false
+                hasNextPage:
+                  type: boolean
+                  example: true
+        example:
+          status: 200
+          message: Successfully found contacts!
+          data:
+            data:
+              - _id: '67e2a2a0bf01b2e2080879a3'
+                name: 'Emmett Leuschke'
+                phoneNumber: '454-203-4477'
+                email: 'Jakob.Kling@yahoo.com'
+                isFavourite: false
+                contactType: 'personal'
+                userId: '67e1e722b39ba3805933efba'
+                photo: 'https://m.media-amazon.com/images/I/41kv6qpfkdL._SY300_SX300_QL70_FMwebp_.jpg'
+            page: 1
+            perPage: 10
+            totalItems: 17
+            totalPages: 2
+            hasPreviousPage: false
+            hasNextPage: true
+
   '401':
     $ref: ../../components/responses/401.yaml
   '500':

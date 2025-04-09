@@ -53,7 +53,7 @@ responses:
               type: string
               example: Successfully created a contact
             data:
-              $ref: ../../components/schemas/contact.yaml
+              $ref: ../../components/schemas/ContactUpdateRequest.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '500':

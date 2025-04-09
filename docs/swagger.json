@@ -143,6 +143,10 @@
                     "type": "string",
                     "example": "Lola Bs"
                   },
+                  "email": {
+                    "type": "string",
+                    "example": "Ryann60@yahoo.com"
+                  },
                   "phoneNumber": {
                     "type": "string",
                     "example": 38097357689
@@ -173,11 +177,6 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -197,6 +196,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Contact not found"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -228,10 +230,13 @@
         ],
         "responses": {
           "204": {
-            "description": "Successfully deleted a contact"
+            "description": "Contact successfully deleted"
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "Contact not found"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -258,9 +263,75 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/contact"
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contacts!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/contact"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 10
+                        },
+                        "totalItems": {
+                          "type": "integer",
+                          "example": 17
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 2
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "status": 200,
+                  "message": "Successfully found contacts!",
+                  "data": {
+                    "data": [
+                      {
+                        "_id": "67e2a2a0bf01b2e2080879a3",
+                        "name": "Emmett Leuschke",
+                        "phoneNumber": "454-203-4477",
+                        "email": "Jakob.Kling@yahoo.com",
+                        "isFavourite": false,
+                        "contactType": "personal",
+                        "userId": "67e1e722b39ba3805933efba",
+                        "photo": "https://m.media-amazon.com/images/I/41kv6qpfkdL._SY300_SX300_QL70_FMwebp_.jpg"
+                      }
+                    ],
+                    "page": 1,
+                    "perPage": 10,
+                    "totalItems": 17,
+                    "totalPages": 2,
+                    "hasPreviousPage": false,
+                    "hasNextPage": true
                   }
                 }
               }
@@ -379,12 +450,11 @@
       "contact": {
         "type": "object",
         "required": [
-          "_id",
           "name",
           "phoneNumber",
           "contactType",
-          "userId",
-          "photo"
+          "photo",
+          "email"
         ],
         "properties": {
           "_id": {
@@ -402,6 +472,17 @@
             "description": "Contact number",
             "example": 38097357689
           },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Contact email",
+            "example": "Ryann60@yahoo.com"
+          },
+          "isFavourite": {
+            "type": "boolean",
+            "description": "Whether the contact is marked as favourite",
+            "example": false
+          },
           "contactType": {
             "type": "string",
             "description": "Contact type",
@@ -417,23 +498,10 @@
             "description": "Contact id",
             "example": "67eec4c00c73bfc979baedbc"
           },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Student created date",
-            "example": "2025-03-27T19:43:21.686+00:00"
-          },
-          "updateAt": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Student updated date",
-            "example": "2025-03-27T19:43:21.686+00:00"
-          },
           "photo": {
             "type": "string",
             "description": "Student avatar url",
-            "example": "https://res.cloudinary.com/dha4xvgfi/image/upload/v1743104601/snunhxlqvnd67budfeja.webp",
-            "default": null
+            "example": "https://res.cloudinary.com/dha4xvgfi/image/upload/v1743104601/snunhxlqvnd67budfeja.webp"
           }
         }
       }
