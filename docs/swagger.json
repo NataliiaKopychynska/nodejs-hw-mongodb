@@ -187,7 +187,7 @@
                       "example": "Successfully patched a contact!"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/contact"
+                      "$ref": "#/components/schemas/ContactUpdateRequest"
                     }
                   }
                 }
@@ -422,7 +422,7 @@
                       "example": "Successfully created a contact"
                     },
                     "data": {
-                      "$ref": "#/components/schemas/contact"
+                      "$ref": "#/components/schemas/ContactUpdateRequest"
                     }
                   }
                 }
@@ -450,9 +450,11 @@
       "contact": {
         "type": "object",
         "required": [
+          "_id",
           "name",
           "phoneNumber",
           "contactType",
+          "userId",
           "photo",
           "email"
         ],
@@ -502,6 +504,53 @@
             "type": "string",
             "description": "Student avatar url",
             "example": "https://res.cloudinary.com/dha4xvgfi/image/upload/v1743104601/snunhxlqvnd67budfeja.webp"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Student created date",
+            "example": "2025-03-27T19:43:21.686+00:00"
+          },
+          "updateAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Student updated date",
+            "example": "2025-03-27T19:43:21.686+00:00"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Mongoose version key",
+            "example": 0
+          }
+        }
+      },
+      "ContactUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Lola Bs"
+          },
+          "email": {
+            "type": "string",
+            "example": "Ryann60@yahoo.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": 38097357689
+          },
+          "contactType": {
+            "type": "string",
+            "enum": [
+              "work",
+              "home",
+              "personal"
+            ],
+            "example": "personal"
+          },
+          "photo": {
+            "type": "string",
+            "format": "binary"
           }
         }
       }
