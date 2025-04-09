@@ -454,9 +454,7 @@
           "name",
           "phoneNumber",
           "contactType",
-          "userId",
-          "photo",
-          "email"
+          "photo"
         ],
         "properties": {
           "_id": {
@@ -530,10 +528,6 @@
           "name": {
             "type": "string",
             "example": "Lola Bs"
-          },
-          "email": {
-            "type": "string",
-            "example": "Ryann60@yahoo.com"
           },
           "phoneNumber": {
             "type": "string",

@@ -3,9 +3,6 @@ properties:
   name:
     type: string
     example: Lola Bs
-  email:
-    type: string
-    example: Ryann60@yahoo.com
   phoneNumber:
     type: string
     example: +38097357689
