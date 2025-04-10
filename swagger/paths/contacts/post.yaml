@@ -1,8 +1,8 @@
 tags:
-  - Contact
-summary: Create contact
+  - Contacts
+summary: Create a new contact
 operationId: createContact
-description: Create a new contact
+description: This endpoint allows you to create a new contact.
 security:
   - bearerAuth: []
 requestBody:
@@ -13,48 +13,36 @@ requestBody:
         type: object
         required:
           - name
+          - email
           - phoneNumber
-          - contactType
         properties:
           name:
             type: string
-            description: Contact name
-            example: Lola Bs
+            description: Name of the contact
+            example: 'John Doe'
+          email:
+            type: string
+            description: Email address of the contact
+            example: 'john.doe@example.com'
           phoneNumber:
             type: string
-            description: Contact number
-            example: +38097357689
+            description: Phone number of the contact
+            example: '+123456789'
+          isFavourite:
+            type: boolean
+            description: Indicates if the contact is marked as favourite
+            default: false
           contactType:
             type: string
-            description: Contact type
             enum: ['work', 'home', 'personal']
-            example: personal
+            description: Type of contact
+            example: 'work'
           photo:
             type: string
             format: binary
-            description: Contact photo file
-            default: null
+            description: Contact's photo (optional)
 responses:
   '201':
-    description: Successfully created a contact
-    content:
-      application/json:
-        schema:
-          type: object
-          required:
-            - status
-            - message
-            - data
-          properties:
-            status:
-              type: integer
-              example: 201
-            message:
-              type: string
-              example: Successfully created a contact
-            data:
-              $ref: ../../components/schemas/ContactUpdateRequest.yaml
-  '401':
-    $ref: ../../components/responses/401.yaml
-  '500':
-    $ref: ../../components/responses/500.yaml
+    $ref: '../../components/responses/201.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'

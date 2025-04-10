@@ -1,17 +1,17 @@
 tags:
-  - Contact
-summary: Update contact
+  - Contacts
 operationId: updateContact
-description: Update an existing contact
+summary: Update contact information by ID
+description: This endpoint allows you to update specific contact details by its unique ID.
 security:
   - bearerAuth: []
 parameters:
-  - in: path
-    name: id
+  - name: id
+    in: path
     required: true
+    description: ID of the contact to update
     schema:
       type: string
-    description: Contact ID to update
 requestBody:
   required: true
   content:
@@ -21,40 +21,43 @@ requestBody:
         properties:
           name:
             type: string
-            example: Lola Bs
+            example: 'John Doe'
           email:
             type: string
-            example: Ryann60@yahoo.com
+            format: email
+            example: 'johndoe@example.com'
           phoneNumber:
             type: string
-            example: +38097357689
-          contactType:
-            type: string
-            enum: [work, home, personal]
-            example: personal
+            example: '+1234567890'
           photo:
             type: string
             format: binary
-            default: null
+            description: Contact's updated photo (optional)
+          contactType:
+            type: string
+            enum: ['work', 'home', 'personal']
+            example: 'personal'
+          isFavourite:
+            type: boolean
+            description: Indicates if the contact is marked as favourite
+            example: true
+      example:
+        email: 'tetetetete@gmail.com'
+        contactType: 'home'
+        phoneNumber: '+123456789'
+        name: 'Jane Doe'
+        photo: 'file data'
+        isFavourite: false
 responses:
-  '200':
-    description: Successfully patched a contact
+  200:
+    description: Successfully updated contact details
     content:
       application/json:
         schema:
-          type: object
-          properties:
-            status:
-              type: integer
-              example: 200
-            message:
-              type: string
-              example: Successfully patched a contact!
-            data:
-              $ref: ../../../components/schemas/ContactUpdateRequest.yaml
-  '401':
-    $ref: ../../../components/responses/401.yaml
+          $ref: '../../../components/schemas/Contact.yaml'
+  '400':
+    $ref: '../../../components/responses/400.yaml'
   '404':
-    description: Contact not found
+    $ref: '../../../components/responses/404.yaml'
   '500':
     $ref: ../../../components/responses/500.yaml
